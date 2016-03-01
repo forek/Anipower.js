@@ -1,6 +1,7 @@
 ﻿/**
 *Anipower.js
-*ver 0.0
+*ver 0.1
+*https://github.com/forek/Anipower.js
 */
 
 (function (window,AnpConstruction) {
