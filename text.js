@@ -1,7 +1,7 @@
 var a = new Anp.createComponent({
 	text:"hello world!",
-	initStyle:"left {{test1}}:8px & 2s;position:absolute;color {{test2}}:red & 2s;",
-	initTrigger:{
+	style:"left {test1}:8px & 2s;position:absolute;color {test2}:red & 2s;",
+	trigger:{
 		type:"click",
 	    func:function(event){
 	    	this.toggle('next');
@@ -50,8 +50,17 @@ b.newState({
 Anp.render(b);
 
 var c = new Anp.createComponent({
-    initStyle:"color {{test2}}:auto;",
-	initTrigger:{
+    style:"color {test2}:auto;",
+	trigger:{
+		type:"click",
+	    func:function(event){
+	    	this.toggle('next');
+	        }
+        }
+},Anp.$("#p"));
+
+var c = new Anp.createComponent({
+	trigger:{
 		type:"click",
 	    func:function(event){
 	    	this.toggle('next');
@@ -71,5 +80,9 @@ c.newState({
 });
 
 var c = new Anp.createComponent({
-    initStyle:"color {{test2}}:auto;"
+    style:"color {test2}:auto;"
+},Anp.$("#p"));
+
+var c = new Anp.createComponent({
+    style:{color:'auto {test2}'}
 },Anp.$("#p"));

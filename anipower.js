@@ -183,12 +183,17 @@
         this.type = rel.tagName;
 
         this.text = rel.firstChild.textContent;
+        
+        if (opt.style) {
+          setStyle.call(this,opt.style)
+        } else if (rel.getAttribute('anp:style')) {
+          setStyle.call(this,rel.getAttribute('anp:style'));
+        }
 
-        if (opt.initStyle) setStyle.call(this,opt.initStyle);
-
-        if (opt.initTrigger) {
-          if (typeof opt.initTrigger === "object") {
-            this.initTrigger = opt.initTrigger;
+  
+        if (opt.trigger) {
+          if (typeof opt.trigger === "object") {
+            this.initTrigger = opt.trigger;
           }
           bind(rel,this.initTrigger);
         }
@@ -221,41 +226,53 @@
 
         opt.text && typeof opt.text === "string" ? this.text = opt.text : this.text = "" ;
 
-        if (opt.initTrigger) {
-          if (typeof opt.initTrigger === "object") {
-            this.initTrigger = opt.initTrigger;
+        if (opt.trigger) {
+          if (typeof opt.trigger === "object") {
+            this.initTrigger = opt.trigger;
           }
         }
         
-        if (opt.initStyle) setStyle.call(this,opt.initStyle);
+        if (opt.style) setStyle.call(this,opt.style);
 
         this.showSignature = function(){
           return signature;
         }
       }
+      
 
       function setStyle (ObjStyle) {
         if (ObjStyle) {
           this.initStyle = {};              
           this.modelList = {};
+          if (typeof ObjStyle === "string") {
           var initStyle = ObjStyle.split(';') ;
-          for (var i in initStyle) {
-            if (initStyle[i].length > 0) {
-              var cache = initStyle[i].split(':');
-              if ( cache.length === 2) {
-              var name,style;
-              name = cache[0];
-              style = cache[1];
-   
-              if ( name.indexOf("{{") && name.indexOf("}}") && name.indexOf("{{") < name.indexOf("}}") ) {
+            for (var i in initStyle) {
+              if (initStyle[i].length > 0) {
+                var cache = initStyle[i].split(':');
+                if ( cache.length === 2) {
+                var name,style;
+                name = cache[0];
+                style = cache[1];
+              
+              if ( name.indexOf("{") && name.indexOf("}") && name.indexOf("{") < name.indexOf("}") ) {
                 var start,end,model;
-                start = name.indexOf("{{") + 2;
-                end = name.indexOf("}}");
-                model = name.slice(start,end);
-                name = replaceSpace(name.slice(0,start - 2));
+                start = name.indexOf("{") + 1;
+                end = name.indexOf("}");
+                model = replaceSpace(name.slice(start,end));
+                name = replaceSpace(name.slice(0,start - 1)  + name.slice(end + 1));
+                
                 this.modelList[name] = model;
                 //console.log(this.modelList);
+              } else if ( style.indexOf("{") && style.indexOf("}") && style.indexOf("{") < style.indexOf("}") ) {
+                console.log('aa');
+                var start,end,model;
+                start = style.indexOf("{") + 1;
+                end = style.indexOf("}");
+                model = replaceSpace(style.slice(start,end));
+                style = replaceSpace(style.slice(0,start - 1) + style.slice(end + 1));
+                this.modelList[name] = model;
               }
+
 
               if (style.indexOf('&') > 0) {
                 var $start = style.indexOf("&");
@@ -281,6 +298,52 @@
               }
             }
           }
+          } else if (typeof ObjStyle === "object") {
+            for(var key in ObjStyle){
+              var name,style;
+              name = key;
+              style = ObjStyle[key];
+
+              if ( name.indexOf("{{") && name.indexOf("}}") && name.indexOf("{{") < name.indexOf("}}") ) {
+                var start,end,model;
+                start = name.indexOf("{{") + 2;
+                end = name.indexOf("}}");
+                model = name.slice(start,end);
+                name = replaceSpace(name.slice(0,start - 2));
+                this.modelList[name] = model;
+                //console.log(this.modelList);
+              }  else if ( style.indexOf("{") && style.indexOf("}") && style.indexOf("{") < style.indexOf("}") ) {
+                var start,end,model;
+                start = style.indexOf("{") + 1;
+                end = style.indexOf("}");
+                model = replaceSpace(style.slice(start,end));
+                style = replaceSpace(style.slice(0,start - 1) + style.slice(end + 1));
+                this.modelList[name] = model;
+              }
+
+              if (style.indexOf('&') > 0) {
+                var $start = style.indexOf("&");
+                var transition = replaceSpace(style.slice($start + 1));
+                style = style.slice(0,$start);
+                if (this.initStyle.transition) {
+                  this.initStyle.transition += (',' + name + ' ' + transition);
+                } else {
+                  this.initStyle.transition = (name + ' ' + transition);
+                }
+                var trsobj = {};
+                trsobj[name] = transition;
+                if (this.trs) {
+                  this.trs.push(trsobj);
+                }else{
+                  this.trs = [trsobj];
+                }
+              }
+
+            this.initStyle[name] = style;
+
+            }
+          }
+
         }
         }
     }
