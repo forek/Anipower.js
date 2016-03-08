@@ -608,6 +608,19 @@
   function renderApi (Anp) {
     Anp.render = function (Components,reuse) {
 
+      function runAuto (node) {
+          if (node.auto) {
+            node.auto();
+            node.RenderedEl = null;
+          }
+          if (node.child) {
+            for (var i in node.child) {
+              runAuto(node.child[i]);
+            }
+          }
+          return;
+        }
+
       function buildNode (node,parent) {
         var el,$value;
         if (node.el.charAt(0) === "#") {
@@ -672,18 +685,7 @@
         return cache;
       } else if ( !Components.RenderedEl ) {
         Components.RenderedEl = buildNode(Components);
-        function runAuto (node) {
-          if (node.auto) {
-            node.auto();
-            node.RenderedEl = null;
-          }
-          if (node.child) {
-            for (var i in node.child) {
-              runAuto(node.child[i]);
-            }
-          }
-          return;
-        }
+
         runAuto(Components);
       } else {
         throwError("repeat");
