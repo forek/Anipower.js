@@ -5,7 +5,8 @@
 */
 
 (function (window,AnpConstruction) {
-   window.Anp = AnpConstruction();
+  typeof define === 'function' && define.amd ? define(AnpConstruction) :
+  window.Anp = AnpConstruction();
 }(this, function () {
 	'use strict';
 
