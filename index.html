@@ -1,10 +1,34 @@
 ﻿<html>
 <head>
 	<title>Anipower.js</title>
+	<style type="text/css">
+		#imgList li{width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;}
+	</style>
 </head>
 <body>
 
-<p id="p" style="position:fixed" anp:style = "left:100px & 1s;" >Hello World</p>
+<h2 >Demo - 0</h2>
+<div id="box"> 
+	<ol anp:class= 'ol'>
+		<li anp:class = 'li'>first</li>
+		<li anp:class = 'li'>second</li>
+		<li anp:class = 'li'>third</li>
+	</ol>
+</div>
+
+<h2>Demo - 1</h2>
+<div id="flexslider" style="height:364px">
+	<ul id="imgList">
+		<li anp:status='active' anp:class='flexImg' style="opacity:1"><a href="###"><img src="img/1.jpg"></a></li>
+		<li anp:class='flexImg'><a href="###"><img src="img/2.jpg"></a></li>
+		<li anp:class='flexImg'><a href="###"><img src="img/3.png"></a></li>
+		<li anp:class='flexImg'><a href="###"><img src="img/4.jpg"></a></li>
+		<li anp:class='flexImg'><a href="###"><img src="img/5.jpg"></a></li>
+		<li anp:class='flexImg'><a href="###"><img src="img/6.jpg"></a></li>
+	</ul>
+</div>
+
+<h2>Demo - 2</h2>
 
 <script data-main="lib/main" src="lib/require.js"></script>
 
