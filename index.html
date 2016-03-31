@@ -9,27 +9,37 @@
 
 <h2 >Demo - 0</h2>
 <div id="box"> 
-	<ol anp:class= 'ol'>
-		<li anp:class = 'li'>first</li>
-		<li anp:class = 'li'>second</li>
-		<li anp:class = 'li'>third</li>
+	<ol anp:group= 'ol'>
+		<li anp:group = 'li'>first</li>
+		<li anp:group = 'li'>second</li>
+		<li anp:group = 'li'>third</li>
+	</ol>
+	<ol style="display:none">
+		<li anp:group = 'other'>{{msg}} <a href="###">{{msg2}}</a> </li>
+		<div>
+			<p anp:group = 'p'></p>
+		</div>
 	</ol>
 </div>
 
 <h2>Demo - 1</h2>
 <div id="flexslider" style="height:364px">
 	<ul id="imgList">
-		<li anp:status='active' anp:class='flexImg' style="opacity:1"><a href="###"><img src="img/1.jpg"></a></li>
-		<li anp:class='flexImg'><a href="###"><img src="img/2.jpg"></a></li>
-		<li anp:class='flexImg'><a href="###"><img src="img/3.png"></a></li>
-		<li anp:class='flexImg'><a href="###"><img src="img/4.jpg"></a></li>
-		<li anp:class='flexImg'><a href="###"><img src="img/5.jpg"></a></li>
-		<li anp:class='flexImg'><a href="###"><img src="img/6.jpg"></a></li>
+		<li anp:status='active' anp:group='flexImg' style="opacity:1"><a href="###"><img src="img/1.jpg"></a></li>
+		<li anp:group='flexImg'><a href="###"><img src="img/2.jpg"></a></li>
+		<li anp:group='flexImg'><a href="###"><img src="img/3.png"></a></li>
+		<li anp:group='flexImg'><a href="###"><img src="img/4.jpg"></a></li>
+		<li anp:group='flexImg'><a href="###"><img src="img/5.jpg"></a></li>
+		<li anp:group='flexImg'><a href="###"><img src="img/6.jpg"></a></li>
 	</ul>
 </div>
 
-<h2>Demo - 2</h2>
-
+<h2 id='test'>Demo - 2</h2>
+<div id="inputDemo">
+<p anp:group="p">{{msg = 'Welcome!'}}</p>
+<p anp:group="p">{{msg1 = "hello"}} : {{name = 'Forekid'}}</p>
+<input anp:model="msg" id='msg'>
+</div>
 <script data-main="lib/main" src="lib/require.js"></script>
 
 </body>
