@@ -1,9 +1,0 @@
-
-
-var _Special = /[a-zA-Z0-9_$]*\.[a-zA-Z0-9_$]+/g;
-
-var _Symbol = /~|`|@|!|\^|&|\*|\(|\)|=|\+|-|\{|}|\[|]|\||\\|:|;|<|>|,|\.|\?|\//g;
-
-var _Keyword = /break|do|instanceof|typeof|case|else|new|var|catch|finally|return|void|continue|for|switch|while|function|this|with|default|if|throw|delete|in|try/g;
-
-var _Reserved = /class|enum|extends|super|const|export|import|implements|package|public|interface|private|static|let|protected|yield/g;
